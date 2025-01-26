@@ -32,6 +32,28 @@
           Algee: document.getElementById("Algee").checked,
           Coral: document.getElementById("Coral").checked
         },
+        highestCoralLevel: {
+          L1: document.getElementById("L1").checked,
+          L2: document.getElementById("L2").checked,
+          L3: document.getElementById("L3").checked,
+          L4: document.getElementById("L4").checked
+        },
+        pickupMethod: {
+          Ground: document.getElementById("Ground").checked,
+          PS: document.getElementById("PS").checked,
+          BT: document.getElementById("BT").checked
+        },
+        preferredCoralLevel: {
+          PL1: document.getElementById("PL1").checked,
+          PL2: document.getElementById("PL2").checked,
+          PL3: document.getElementById("PL3").checked,
+          PL4: document.getElementById("PL4").checked
+        },
+        shootProcessAlgee: {
+          Both: document.getElementById("Both").checked,
+          Shoot: document.getElementById("Shoot").checked,
+          Process: document.getElementById("Process").checked
+        },
         comments: document.getElementById("Comments").value
       };
 
@@ -45,8 +67,10 @@
       // Create and display the new QR code
       const qr = new QRCode(qrCodeContainer, {
         text: formDataString,
-        width: 128,
-        height: 128
+        width: 256,  // **Increased size**
+        height: 256, // **Increased size**
+        correctLevel: QRCode.CorrectLevel.L, // **Error correction level**
+        version: 10  // **Increased version for more data capacity**
       });
     }
   </script>
@@ -73,9 +97,35 @@
     <label for="Whats your Auton plan?">Whats your Auton plan?</label>
     <input type="text" id="Whats_your_Auton_plan" name="Whats_your_Auton_plan" required><br><br>
 
-    <label for="Your prefered way to score">Your prefered way to score with?:</label>
+    <label for="Your preferred way to score with?:">Your preferred way to score with?:</label>
     <input type="checkbox" id="Algee" name="Algee" value="Algee">Algee
     <input type="checkbox" id="Coral" name="Coral" value="Coral">Coral<br><br>
+
+    <label for="Whats the highest level of Coral can your robot reach?">Whats the highest level of Coral can your robot reach?</label>
+    <input type="checkbox" id="L1" name="L1" value="L1" required>Level 1
+    <input type="checkbox" id="L2" name="L2" value="L2" required>Level 2
+    <input type="checkbox" id="L3" name="L3" value="L3" required>Level 3
+    <input type="checkbox" id="L4" name="L4" value="L4" required>Level 4
+    <input type="checkbox" id="HN/A" name="HN/A" value="HN/A" required>N/A<br><br>
+
+    <label for="How does your Robot pick up Algee?">How does your Robot pick up Algee?</label>
+    <input type="checkbox" id="Ground" name="Ground" value="Ground" required>Ground
+    <input type="checkbox" id="PS" name="PS" value="PS" required>Player Station
+    <input type="checkbox" id="BT" name="BT" value="BT" required>Both
+    <input type="checkbox" id="AN/A" name="AN/A" value="AN/A" required>N/A<br><br>
+
+    <label for="Whats the preferred level of Coral your robot can reach?">Whats the preferred level of Coral your robot can reach?</label>
+    <input type="checkbox" id="PL1" name="PL1" value="PL1" required>Level 1
+    <input type="checkbox" id="PL2" name="PL2" value="PL2" required>Level 2
+    <input type="checkbox" id="PL3" name="PL3" value="PL3" required>Level 3
+    <input type="checkbox" id="PL4" name="PL4" value="PL4" required>Level 4
+    <input type="checkbox" id="PN/A" name="PN/A" value="PN/A" required>N/A<br><br>
+
+    <label for="Can your robot shoot and/or process Algee?">Can your Robot shoot and/or process Algee?</label>
+    <input type="checkbox" id="Both" name="Both" value="Both" required>Both
+    <input type="checkbox" id="Shoot" name="Shoot" value="Shoot" required>Shoot
+    <input type="checkbox" id="Process" name="Process" value="Process" required>Process
+    <input type="checkbox" id="SPN/A" name="SPN/A" value="SPN/A" required>N/A<br><br>
 
     <label for="Comments">Comments:</label>
     <input type="text" id="Comments" name="Comments"><br><br>
