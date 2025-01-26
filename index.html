@@ -11,8 +11,8 @@
   
   <script>
     // Function to generate QR Code from the form data
-    function generateQRCode(event) { // **Updated: Added event parameter**
-      event.preventDefault(); // **Updated: Prevent form submission**
+    function generateQRCode(event) {
+      event.preventDefault(); // Prevent form submission
 
       // Collect form data
       const formData = {
@@ -62,15 +62,15 @@
 
       // Generate the QR code
       const qrCodeContainer = document.getElementById("qrcode");
-      qrCodeContainer.innerHTML = ""; // **Updated: Clear previous QR code**
+      qrCodeContainer.innerHTML = ""; // Clear previous QR code
 
       // Create and display the new QR code
       const qr = new QRCode(qrCodeContainer, {
         text: formDataString,
-        width: 256,  // **Increased size**
-        height: 256, // **Increased size**
-        correctLevel: QRCode.CorrectLevel.L, // **Error correction level**
-        version: 10  // **Increased version for more data capacity**
+        width: 256,  // Increased size
+        height: 256, // Increased size
+        correctLevel: QRCode.CorrectLevel.L, // Error correction level
+        version: 10  // Increased version for more data capacity
       });
     }
   </script>
@@ -78,54 +78,54 @@
 <body>
   <h1>MP Reefscape Pit Scouting</h1>
 
-  <form id="MP Pit Scouting" onsubmit="generateQRCode(event)"> <!-- **Updated: onsubmit change** -->
+  <form id="MP Pit Scouting" onsubmit="generateQRCode(event)"> <!-- onsubmit change -->
     <label for="teamNumber">Team Number:</label>
-    <input type="number" id="teamNumber" name="teamNumber" required><br><br>
+    <input type="number" id="teamNumber" name="teamNumber"><br><br>
 
     <label for="teamName">Robot Name:</label>
-    <input type="text" id="teamName" name="teamName" required><br><br>
+    <input type="text" id="teamName" name="teamName"><br><br>
 
     <label for="Drive Type?">Drive Type?:</label>
-    <input type="checkbox" id="Sweve" name="Sweve" value="Sweve"required>Sweve
-    <input type="checkbox" id="Tank" name="Tank" value="Tank"required>Tank
-    <input type="checkbox" id="Mecanum" name="Mecanum" value="Mecanum"required>Mecanum<br><br>
+    <input type="checkbox" id="Sweve" name="Sweve" value="Sweve">Sweve
+    <input type="checkbox" id="Tank" name="Tank" value="Tank">Tank
+    <input type="checkbox" id="Mecanum" name="Mecanum" value="Mecanum">Mecanum<br><br>
 
     <label for="Does your robot leave in Auton?">Does your Robot leave in Auton?</label>
-    <input type="checkbox" id="DYRLIAY" name="DYRLIAY" value="DYRLIAY"required>Yes
-    <input type="checkbox" id="DYRLIAN" name="DYRLIAN" value="DYRLIAN"required>No<br><br>
+    <input type="checkbox" id="DYRLIAY" name="DYRLIAY" value="DYRLIAY">Yes
+    <input type="checkbox" id="DYRLIAN" name="DYRLIAN" value="DYRLIAN">No<br><br>
 
     <label for="Whats your Auton plan?">Whats your Auton plan?</label>
-    <input type="text" id="Whats_your_Auton_plan" name="Whats_your_Auton_plan" required><br><br>
+    <input type="text" id="Whats_your_Auton_plan" name="Whats_your_Auton_plan"><br><br>
 
     <label for="Your preferred way to score with?:">Your preferred way to score with?:</label>
-    <input type="checkbox" id="Algee" name="Algee" value="Algee"required>Algee
-    <input type="checkbox" id="Coral" name="Coral" value="Coral"required>Coral<br><br>
+    <input type="checkbox" id="Algee" name="Algee" value="Algee">Algee
+    <input type="checkbox" id="Coral" name="Coral" value="Coral">Coral<br><br>
 
     <label for="Whats the highest level of Coral can your robot reach?">Whats the highest level of Coral can your robot reach?</label>
-    <input type="checkbox" id="L1" name="L1" value="L1" required>Level 1
-    <input type="checkbox" id="L2" name="L2" value="L2" required>Level 2
-    <input type="checkbox" id="L3" name="L3" value="L3" required>Level 3
-    <input type="checkbox" id="L4" name="L4" value="L4" required>Level 4
-    <input type="checkbox" id="HN/A" name="HN/A" value="HN/A" required>N/A<br><br>
+    <input type="checkbox" id="L1" name="L1" value="L1">Level 1
+    <input type="checkbox" id="L2" name="L2" value="L2">Level 2
+    <input type="checkbox" id="L3" name="L3" value="L3">Level 3
+    <input type="checkbox" id="L4" name="L4" value="L4">Level 4
+    <input type="checkbox" id="HN/A" name="HN/A" value="HN/A">N/A<br><br>
 
     <label for="How does your Robot pick up Algee?">How does your Robot pick up Algee?</label>
-    <input type="checkbox" id="Ground" name="Ground" value="Ground" required>Ground
-    <input type="checkbox" id="PS" name="PS" value="PS" required>Player Station
-    <input type="checkbox" id="BT" name="BT" value="BT" required>Both
-    <input type="checkbox" id="AN/A" name="AN/A" value="AN/A" required>N/A<br><br>
+    <input type="checkbox" id="Ground" name="Ground" value="Ground">Ground
+    <input type="checkbox" id="PS" name="PS" value="PS">Player Station
+    <input type="checkbox" id="BT" name="BT" value="BT">Both
+    <input type="checkbox" id="AN/A" name="AN/A" value="AN/A">N/A<br><br>
 
     <label for="Whats the preferred level of Coral your robot can reach?">Whats the preferred level of Coral your robot can reach?</label>
-    <input type="checkbox" id="PL1" name="PL1" value="PL1" required>Level 1
-    <input type="checkbox" id="PL2" name="PL2" value="PL2" required>Level 2
-    <input type="checkbox" id="PL3" name="PL3" value="PL3" required>Level 3
-    <input type="checkbox" id="PL4" name="PL4" value="PL4" required>Level 4
-    <input type="checkbox" id="PN/A" name="PN/A" value="PN/A" required>N/A<br><br>
+    <input type="checkbox" id="PL1" name="PL1" value="PL1">Level 1
+    <input type="checkbox" id="PL2" name="PL2" value="PL2">Level 2
+    <input type="checkbox" id="PL3" name="PL3" value="PL3">Level 3
+    <input type="checkbox" id="PL4" name="PL4" value="PL4">Level 4
+    <input type="checkbox" id="PN/A" name="PN/A" value="PN/A">N/A<br><br>
 
     <label for="Can your robot shoot and/or process Algee?">Can your Robot shoot and/or process Algee?</label>
-    <input type="checkbox" id="Both" name="Both" value="Both" required>Both
-    <input type="checkbox" id="Shoot" name="Shoot" value="Shoot" required>Shoot
-    <input type="checkbox" id="Process" name="Process" value="Process" required>Process
-    <input type="checkbox" id="SPN/A" name="SPN/A" value="SPN/A" required>N/A<br><br>
+    <input type="checkbox" id="Both" name="Both" value="Both">Both
+    <input type="checkbox" id="Shoot" name="Shoot" value="Shoot">Shoot
+    <input type="checkbox" id="Process" name="Process" value="Process">Process
+    <input type="checkbox" id="SPN/A" name="SPN/A" value="SPN/A">N/A<br><br>
 
     <label for="Comments">Comments:</label>
     <input type="text" id="Comments" name="Comments"><br><br>
