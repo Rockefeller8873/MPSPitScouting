@@ -1,45 +1,89 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pit Scouting</title>
-    <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pit Scouting</title>
+  <link rel="stylesheet" href="styles.css">
+  
+  <!-- Include the QR Code generation library -->
+  <script src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script>
+  
+  <script>
+    // Function to generate QR Code from the form data
+    function generateQRCode(event) { // **Updated: Added event parameter**
+      event.preventDefault(); // **Updated: Prevent form submission**
+
+      // Collect form data
+      const formData = {
+        teamNumber: document.getElementById("teamNumber").value,
+        teamName: document.getElementById("teamName").value,
+        driveType: {
+          Sweve: document.getElementById("Sweve").checked,
+          Tank: document.getElementById("Tank").checked,
+          Mecanum: document.getElementById("Mecanum").checked
+        },
+        auton: {
+          yes: document.getElementById("DYRLIAY").checked,
+          no: document.getElementById("DYRLIAN").checked
+        },
+        autonPlan: document.getElementById("Whats_your_Auton_plan").value,
+        scoringMethod: {
+          Algee: document.getElementById("Algee").checked,
+          Coral: document.getElementById("Coral").checked
+        },
+        comments: document.getElementById("Comments").value
+      };
+
+      // Convert form data to a string (JSON format)
+      const formDataString = JSON.stringify(formData);
+
+      // Generate the QR code
+      const qrCodeContainer = document.getElementById("qrcode");
+      qrCodeContainer.innerHTML = ""; // **Updated: Clear previous QR code**
+
+      // Create and display the new QR code
+      const qr = new QRCode(qrCodeContainer, {
+        text: formDataString,
+        width: 128,
+        height: 128
+      });
+    }
+  </script>
 </head>
 <body>
-    <h1>MP Reefscape Pit Scouting</h1>
-    <form id="MP-Pit-Scouting" onsubmit="generateQRCode(event)">
-        <label for="teamNumber">Team Number:</label>
-        <input type="number" id="teamNumber" name="teamNumber" required><br><br>
+  <h1>MP Reefscape Pit Scouting</h1>
 
-        <label for="teamName">Robot Name:</label>
-        <input type="text" id="teamName" name="teamName" required><br><br>
+  <form id="MP Pit Scouting" onsubmit="generateQRCode(event)"> <!-- **Updated: onsubmit change** -->
+    <label for="teamNumber">Team Number:</label>
+    <input type="number" id="teamNumber" name="teamNumber" required><br><br>
 
-        <button type="submit">Generate QR Code</button>
-    </form>
+    <label for="teamName">Robot Name:</label>
+    <input type="text" id="teamName" name="teamName" required><br><br>
 
-    <div id="qrcode"></div>
+    <label for="Drive Type?">Drive Type?:</label>
+    <input type="checkbox" id="Sweve" name="Sweve" value="Sweve">Sweve
+    <input type="checkbox" id="Tank" name="Tank" value="Tank">Tank
+    <input type="checkbox" id="Mecanum" name="Mecanum" value="Mecanum">Mecanum<br><br>
 
-    <script>
-        function generateQRCode(event) {
-            event.preventDefault(); // Prevent form submission
+    <label for="Does your robot leave in Auton?">Does your Robot leave in Auton?</label>
+    <input type="checkbox" id="DYRLIAY" name="DYRLIAY" value="DYRLIAY">Yes
+    <input type="checkbox" id="DYRLIAN" name="DYRLIAN" value="DYRLIAN">No<br><br>
 
-            const teamNumber = document.getElementById('teamNumber').value;
-            const teamName = document.getElementById('teamName').value;
+    <label for="Whats your Auton plan?">Whats your Auton plan?</label>
+    <input type="text" id="Whats_your_Auton_plan" name="Whats_your_Auton_plan" required><br><br>
 
-            // Prepare data to encode in the QR code
-            const qrData = {
-                teamNumber: teamNumber,
-                teamName: teamName
-            };
+    <label for="Your prefered way to score">Your prefered way to score with?:</label>
+    <input type="checkbox" id="Algee" name="Algee" value="Algee">Algee
+    <input type="checkbox" id="Coral" name="Coral" value="Coral">Coral<br><br>
 
-            // Generate the QR code and render it in the "qrcode" div
-            QRCode.toCanvas(document.getElementById('qrcode'), JSON.stringify(qrData), function(error) {
-                if (error) {
-                    console.error('QR Code generation failed: ', error);
-                }
-            });
-        }
-    </script>
+    <label for="Comments">Comments:</label>
+    <input type="text" id="Comments" name="Comments"><br><br>
+
+    <button type="submit">Generate QR Code</button>
+  </form>
+
+  <!-- Container to display the QR Code -->
+  <div id="qrcode"></div>
 </body>
 </html>
