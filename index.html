@@ -14,15 +14,6 @@
     function generateQRCode(event) {
       event.preventDefault(); // Prevent form submission
 
-      // Check if at least one checkbox is checked
-      const checkboxes = document.querySelectorAll('input[type="checkbox"]');
-      const anyChecked = Array.from(checkboxes).some(checkbox => checkbox.checked);
-
-      if (!anyChecked) {
-        alert('Please select at least one checkbox.');
-        return;
-      }
-
       // Collect form data
       const formData = {
         teamNumber: document.getElementById("teamNumber").value,
@@ -66,16 +57,16 @@
         comments: document.getElementById("Comments").value
       };
 
-      // Format the data as CSV
+      // Format the data as CSV (comma separated values)
       const csvData = [
-        "Team Number, Team Name, Sweve, Tank, Mecanum, Auton Yes, Auton No, Auton Plan, Algee, Coral, Highest Coral Level, Pickup Method, Preferred Coral Level, Shoot/Process Algee, Comments",
-        `${formData.teamNumber}, ${formData.teamName}, ${formData.driveType.Sweve}, ${formData.driveType.Tank}, ${formData.driveType.Mecanum}, ${formData.auton.yes}, ${formData.auton.no}, ${formData.autonPlan}, ${formData.scoringMethod.Algee}, ${formData.scoringMethod.Coral}, ${Object.values(formData.highestCoralLevel).join(", ")}, ${Object.values(formData.pickupMethod).join(", ")}, ${Object.values(formData.preferredCoralLevel).join(", ")}, ${Object.values(formData.shootProcessAlgee).join(", ")}, ${formData.comments}`
+        "Team Number,Team Name,Sweve,Tank,Mecanum,Auton Yes,Auton No,Auton Plan,Algee,Coral,Highest Coral Level,Pickup Method,Preferred Coral Level,Shoot/Process Algee,Comments", // Header row
+        `${formData.teamNumber},${formData.teamName},${formData.driveType.Sweve},${formData.driveType.Tank},${formData.driveType.Mecanum},${formData.auton.yes},${formData.auton.no},${formData.autonPlan},${formData.scoringMethod.Algee},${formData.scoringMethod.Coral},${Object.values(formData.highestCoralLevel).join(", ")},${Object.values(formData.pickupMethod).join(", ")},${Object.values(formData.preferredCoralLevel).join(", ")},${Object.values(formData.shootProcessAlgee).join(", ")},${formData.comments}`
       ].join("\n");
 
       // Display the CSV data in the hidden input
       document.getElementById("csvData").value = csvData;
 
-      // Generate the QR code
+      // Generate the QR code with the CSV data
       const qrCodeContainer = document.getElementById("qrcode");
       qrCodeContainer.innerHTML = ""; // Clear previous QR code
 
