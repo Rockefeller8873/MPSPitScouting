@@ -68,8 +68,8 @@
 
       // Format the data as CSV
       const csvData = [
-        "Team Number, Team Name, Drive Type, Auton, Auton Plan, Scoring Method, Highest Coral Level, Pickup Method, Preferred Coral Level, Shoot/Process Algee, Comments",
-        `${formData.teamNumber}, ${formData.teamName}, ${Object.values(formData.driveType).join(", ")}, ${Object.values(formData.auton).join(", ")}, ${formData.autonPlan}, ${Object.values(formData.scoringMethod).join(", ")}, ${Object.values(formData.highestCoralLevel).join(", ")}, ${Object.values(formData.pickupMethod).join(", ")}, ${Object.values(formData.preferredCoralLevel).join(", ")}, ${Object.values(formData.shootProcessAlgee).join(", ")}, ${formData.comments}`
+        "Team Number, Team Name, Sweve, Tank, Mecanum, Auton Yes, Auton No, Auton Plan, Algee, Coral, Highest Coral Level, Pickup Method, Preferred Coral Level, Shoot/Process Algee, Comments",
+        `${formData.teamNumber}, ${formData.teamName}, ${formData.driveType.Sweve}, ${formData.driveType.Tank}, ${formData.driveType.Mecanum}, ${formData.auton.yes}, ${formData.auton.no}, ${formData.autonPlan}, ${formData.scoringMethod.Algee}, ${formData.scoringMethod.Coral}, ${Object.values(formData.highestCoralLevel).join(", ")}, ${Object.values(formData.pickupMethod).join(", ")}, ${Object.values(formData.preferredCoralLevel).join(", ")}, ${Object.values(formData.shootProcessAlgee).join(", ")}, ${formData.comments}`
       ].join("\n");
 
       // Display the CSV data in the hidden input
