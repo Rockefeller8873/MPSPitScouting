@@ -5,16 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Pit Scouting</title>
   <link rel="stylesheet" href="styles.css">
-  
-  <!-- Include the QR Code generation library -->
+
   <script src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script>
   
   <script>
-    // Function to generate QR Code from the form data
     function generateQRCode(event) {
-      event.preventDefault(); // Prevent form submission
+      event.preventDefault(); 
 
-      // Check if at least one checkbox is checked
       const checkboxes = document.querySelectorAll('input[type="checkbox"]');
       const anyChecked = Array.from(checkboxes).some(checkbox => checkbox.checked);
 
@@ -23,7 +20,6 @@
         return;
       }
 
-      // Collect form data
       const formData = {
         teamNumber: document.getElementById("teamNumber").value,
         teamName: document.getElementById("teamName").value,
@@ -66,21 +62,28 @@
         comments: document.getElementById("Comments").value
       };
 
-      // Convert form data to a string (JSON format)
       const formDataString = JSON.stringify(formData);
 
-      // Generate the QR code
       const qrCodeContainer = document.getElementById("qrcode");
-      qrCodeContainer.innerHTML = ""; // Clear previous QR code
+      qrCodeContainer.innerHTML = ""; 
 
-      // Create and display the new QR code
       const qr = new QRCode(qrCodeContainer, {
         text: formDataString,
-        width: 256,  // Increased size
-        height: 256, // Increased size
-        correctLevel: QRCode.CorrectLevel.L, // Error correction level
-        version: 9  // Increased version for more data capacity
-     });
+        width: 256,  
+        height: 256, 
+        correctLevel: QRCode.CorrectLevel.L, 
+        version: 8  
+      });
+      
+      document.getElementById("qrData").value = formDataString;
+    }
+
+    function copyToClipboard() {
+      const qrData = document.getElementById("qrData");
+      qrData.select();
+      qrData.setSelectionRange(0, 99999); // For mobile devices
+      document.execCommand("copy");
+      alert("QR code data copied to clipboard!");
     }
   </script>
 </head>
@@ -142,7 +145,10 @@
     <button type="submit">Generate QR Code</button>
   </form>
 
-  <!-- Container to display the QR Code -->
   <div id="qrcode"></div>
+
+  <input type="text" id="qrData" style="opacity: 0; position: absolute;" readonly>
+
+  <button onclick="copyToClipboard()">Copy QR Code Data</button>
 </body>
 </html>
