@@ -1,0 +1,94 @@
+* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Body styling */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #000037;
+    color: #e1ff00;
+    line-height: 1.6;
+    padding: 20px;
+}
+
+/* Title styling */
+h1 {
+    text-align: center;
+    color: #e1ff00;
+    margin-bottom: 30px;
+}
+
+/* Form styling */
+form {
+    background-color: #000037;
+    padding: 20px;
+    max-width: 700px;
+    margin: 0 auto;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Label styling */
+label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+}
+
+/* Input field styling */
+input[type="text"], input[type="number"], input[type="checkbox"] {
+    width: 100%;
+    padding: 8px;
+    margin: 8px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+/* Styling for the checkboxes - make them inline */
+input[type="checkbox"] {
+    width: auto;
+    display: inline-block;
+}
+
+/* Styling for submit button */
+button {
+    display: inline-block;
+    background-color: #fff200;
+    color: #00012d;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 20px;
+    width: 100%;
+}
+
+/* Submit button hover effect */
+button:hover {
+    background-color: #ff00f2;
+}
+
+/* Additional spacing for the input fields */
+input[type="text"], input[type="number"], textarea {
+    width: 100%;
+}
+
+/* Handle the form structure with space between elements */
+form label + input {
+    margin-top: 10px;
+}
+
+/* Making checkboxes more organized */
+form div {
+    margin-bottom: 10px;
+}
+
+/* Giving the entire form some spacing */
+form br {
+    display: block;
+    margin: 10px 0;
+}
