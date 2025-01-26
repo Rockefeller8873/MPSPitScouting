@@ -36,6 +36,7 @@ label {
     display: block;
     margin-bottom: 8px;
     font-weight: bold;
+    align-self: center;
 }
 
 /* Input field styling */
@@ -45,19 +46,21 @@ input[type="text"], input[type="number"], input[type="checkbox"] {
     margin: 8px 0;
     border: 1px solid #ccc;
     border-radius: 4px;
+    align-self: center;
 }
 
 /* Styling for the checkboxes - make them inline */
 input[type="checkbox"] {
     width: auto;
     display: inline-block;
+    align-self: center;
 }
 
 /* Styling for submit button */
 button {
     display: inline-block;
     background-color: #fff200;
-    color: #00012d;
+    color: #09ff00;
     padding: 12px 20px;
     border: none;
     border-radius: 4px;
@@ -65,6 +68,7 @@ button {
     font-size: 16px;
     margin-top: 20px;
     width: 100%;
+    align-self: center;
 }
 
 /* Submit button hover effect */
