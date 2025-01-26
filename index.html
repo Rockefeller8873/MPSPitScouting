@@ -14,6 +14,15 @@
     function generateQRCode(event) {
       event.preventDefault(); // Prevent form submission
 
+      // Check if at least one checkbox is checked
+      const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+      const anyChecked = Array.from(checkboxes).some(checkbox => checkbox.checked);
+
+      if (!anyChecked) {
+        alert('Please select at least one checkbox.');
+        return;
+      }
+
       // Collect form data
       const formData = {
         teamNumber: document.getElementById("teamNumber").value,
