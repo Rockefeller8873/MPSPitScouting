@@ -80,13 +80,16 @@
       });
     }
 
-    // Function to copy the CSV data to clipboard
+    // Function to copy the CSV data to clipboard using the Clipboard API
     function copyToClipboard() {
-      const csvData = document.getElementById("csvData");
-      csvData.select();
-      csvData.setSelectionRange(0, 99999); // For mobile devices
-      document.execCommand("copy");
-      alert("CSV data copied to clipboard!");
+      const csvData = document.getElementById("csvData").value;
+      
+      // Use the Clipboard API for modern browsers
+      navigator.clipboard.writeText(csvData).then(() => {
+        alert("CSV data copied to clipboard!");
+      }).catch((err) => {
+        alert("Failed to copy text: " + err);
+      });
     }
   </script>
 </head>
