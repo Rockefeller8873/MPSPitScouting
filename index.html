@@ -1,20 +1,17 @@
+//Its dangerous to go alone, take these comments to guide you
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Pit Scouting</title>
   <link rel="stylesheet" href="styles.css">
-  
-  <!-- Include the QR Code generation library -->
-  <script src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script>
-  
+  //This generates the QR code 
   <script>
-    // Function to generate QR Code from the form data
     function generateQRCode(event) {
-      event.preventDefault(); // Prevent form submission
-
-      // Collect form data
+      event.preventDefault(); 
+//This handles your mom...grabing the data to put into the QR code
       const formData = {
         teamNumber: document.getElementById("teamNumber").value,
         teamName: document.getElementById("teamName").value,
@@ -52,42 +49,35 @@
         shootProcessAlgee: {
           Both: document.getElementById("Both").checked ? "Both" : "",
           Shoot: document.getElementById("Shoot").checked ? "Shoot" : "",
-          Process: document.getElementById("Process").checked ? "Process" : ""
+          Process: document.getElementById("Process").checked ? "Process" : "",
+          Nither: document.gerElementById("Nither").checked ? "Nither" : ""
         },
         comments: document.getElementById("Comments").value
       };
-
-      // Format the data as CSV (comma separated values)
+//This is the data that spits out into the QR code or csv data(if you cant read)
       const csvData = [
-        "Team Number,Team Name,Sweve,Tank,Mecanum,Auton Yes,Auton No,Auton Plan,Algee,Coral,Highest Coral Level,Pickup Method,Preferred Coral Level,Shoot/Process Algee,Comments", // Header row
         `${formData.teamNumber},${formData.teamName},${formData.driveType.Sweve},${formData.driveType.Tank},${formData.driveType.Mecanum},${formData.auton.yes},${formData.auton.no},${formData.autonPlan},${formData.scoringMethod.Algee},${formData.scoringMethod.Coral},${Object.values(formData.highestCoralLevel).join(", ")},${Object.values(formData.pickupMethod).join(", ")},${Object.values(formData.preferredCoralLevel).join(", ")},${Object.values(formData.shootProcessAlgee).join(", ")},${formData.comments}`
       ].join("\n");
 
-      // Display the CSV data in the hidden input
       document.getElementById("csvData").value = csvData;
 
-      // Generate the QR code with the CSV data
       const qrCodeContainer = document.getElementById("qrcode");
-      qrCodeContainer.innerHTML = ""; // Clear previous QR code
+      qrCodeContainer.innerHTML = "";
 
-      // Create and display the new QR code
       const qr = new QRCode(qrCodeContainer, {
         text: csvData,
-        width: 256,  // Increased size
-        height: 256, // Increased size
-        correctLevel: QRCode.CorrectLevel.L, // Error correction level
-        version: 10  // Increased version for more data capacity
+        width: 256,  
+        height: 256, 
+        correctLevel: QRCode.CorrectLevel.L, 
+        version: 10 
       });
     }
 
-    // Function to copy the CSV data to clipboard with fallback for older browsers
     function copyToClipboard() {
       const csvData = document.getElementById("csvData").value;
 
-      // Debugging: Check if the value is being copied
       console.log("CSV Data to copy:", csvData);
-
-      // Use the Clipboard API for modern browsers
+//This are popups
       if (navigator.clipboard) {
         navigator.clipboard.writeText(csvData).then(() => {
           alert("CSV data copied to clipboard!");
@@ -96,7 +86,6 @@
           alert("Failed to copy text: " + err);
         });
       } else {
-        // Fallback to execCommand for older browsers
         const textArea = document.createElement("textarea");
         textArea.value = csvData;
         document.body.appendChild(textArea);
@@ -115,13 +104,15 @@
   </script>
 </head>
 <body>
+//This is the start of the real websites code
   <h1>MP Reefscape Pit Scouting</h1>
 
-  <form id="MP Pit Scouting" onsubmit="generateQRCode(event)"> <!-- onsubmit change -->
+  <form id="MP Pit Scouting" onsubmit="generateQRCode(event)"> 
+    
     <label for="teamNumber">Team Number:</label>
     <input type="number" id="teamNumber" name="teamNumber"><br><br>
 
-    <label for="teamName">Robot Name:</label>
+    <label for="teamName">Team Name:</label>
     <input type="text" id="teamName" name="teamName"><br><br>
 
     <label for="Drive Type?">Drive Type?:</label>
@@ -137,8 +128,13 @@
     <input type="text" id="Whats_your_Auton_plan" name="Whats_your_Auton_plan"><br><br>
 
     <label for="Your preferred way to score with?:">Your preferred way to score with?:</label>
-    <input type="checkbox" id="Algee" name="Algee" value="Algee">Algee
+    <input type="checkbox" id="Algee" name="Algee" value="Algee">Algae
     <input type="checkbox" id="Coral" name="Coral" value="Coral">Coral<br><br>
+
+    <label for="How does your Robot pick up Algee?">How does your Robot pick up Coral?</label>
+    <input type="checkbox" id="Ground" name="Ground" value="Ground">Ground
+    <input type="checkbox" id="PS" name="PS" value="PS">Player Station
+    <input type="checkbox" id="BT" name="BT" value="BT">Both<br><br>
 
     <label for="Whats the highest level of Coral can your robot reach?">Whats the highest level of Coral can your robot reach?</label>
     <input type="checkbox" id="L1" name="L1" value="L1">Level 1
@@ -146,10 +142,11 @@
     <input type="checkbox" id="L3" name="L3" value="L3">Level 3
     <input type="checkbox" id="L4" name="L4" value="L4">Level 4<br><br>
 
-    <label for="How does your Robot pick up Algee?">How does your Robot pick up Algee?</label>
-    <input type="checkbox" id="Ground" name="Ground" value="Ground">Ground
-    <input type="checkbox" id="PS" name="PS" value="PS">Player Station
-    <input type="checkbox" id="BT" name="BT" value="BT">Both<br><br>
+    <label for="Can your robot shoot and/or process Algee?">Can your Robot shoot and/or process Algae?</label>
+    <input type="checkbox" id="Both" name="Both" value="Both">Both
+    <input type="checkbox" id="Shoot" name="Shoot" value="Shoot">Shoot
+    <input type="checkbox" id="Process" name="Process" value="Process">Process
+    <input type="checkbox" id="Nither" name="Nither" value="Nither">Nither<br><br>
 
     <label for="Whats the preferred level of Coral your robot can reach?">Whats the preferred level of Coral your robot can reach?</label>
     <input type="checkbox" id="PL1" name="PL1" value="PL1">Level 1
@@ -157,24 +154,20 @@
     <input type="checkbox" id="PL3" name="PL3" value="PL3">Level 3
     <input type="checkbox" id="PL4" name="PL4" value="PL4">Level 4<br><br>
 
-    <label for="Can your robot shoot and/or process Algee?">Can your Robot shoot and/or process Algee?</label>
-    <input type="checkbox" id="Both" name="Both" value="Both">Both
-    <input type="checkbox" id="Shoot" name="Shoot" value="Shoot">Shoot
-    <input type="checkbox" id="Process" name="Process" value="Process">Process<br><br>
-
     <label for="Comments">Comments:</label>
     <input type="text" id="Comments" name="Comments"><br><br>
 
     <button type="submit">Generate QR Code</button>
   </form>
 
-  <!-- Container to display the QR Code -->
+  //This genarates the QR code 
   <div id="qrcode"></div>
 
   <!-- Hidden input to store CSV data for copying -->
   <input type="text" id="csvData" style="opacity: 0; position: absolute;" readonly>
 
-  <!-- Button to copy the CSV data -->
+// This is a button (dummy) to copy CSV Data
   <button onclick="copyToClipboard()">Copy CSV Data</button>
 </body>
 </html>
+//I hope these helped (;
