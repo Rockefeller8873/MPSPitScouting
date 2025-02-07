@@ -1,4 +1,4 @@
-//Its dangerous to go alone, take these comments to guide you
+<!--Its dangerous to go alone, take these comments to guide you-->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,7 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Pit Scouting</title>
   <link rel="stylesheet" href="styles.css">
-  //This generates the QR code 
+  <!--This generates the QR code -->
   <script>
     function generateQRCode(event) {
       event.preventDefault(); 
@@ -104,7 +104,7 @@
   </script>
 </head>
 <body>
-//This is the start of the real websites code
+<!--This is the start of how the website is set up-->
   <h1>MP Reefscape Pit Scouting</h1>
 
   <form id="MP Pit Scouting" onsubmit="generateQRCode(event)"> 
@@ -160,14 +160,13 @@
     <button type="submit">Generate QR Code</button>
   </form>
 
-  //This genarates the QR code 
+  <!--This genarates the QR code-->
   <div id="qrcode"></div>
 
-  <!-- Hidden input to store CSV data for copying -->
   <input type="text" id="csvData" style="opacity: 0; position: absolute;" readonly>
 
-// This is a button (dummy) to copy CSV Data
+<!--This is a button (dummy) to copy CSV Data-->
   <button onclick="copyToClipboard()">Copy CSV Data</button>
 </body>
 </html>
-//I hope these helped (;
+<!--I hope these helped (;-->
