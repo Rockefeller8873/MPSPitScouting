@@ -61,15 +61,12 @@
 
       document.getElementById("csvData").value = csvData;
 
-      const qrCodeContainer = document.getElementById("qrcode");
-      qrCodeContainer.innerHTML = "";
-
       const qr = new QRCode(qrCodeContainer, {
         text: csvData,
         width: 256,  
         height: 256, 
         correctLevel: QRCode.CorrectLevel.L, 
-        version: 10 
+        version: 3
       });
     }
 
