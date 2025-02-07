@@ -8,7 +8,7 @@
 /* Body styling */
 body {
     font-family: 'Monospace',Lucida;
-    background-color: #000037;
+    background-color: #000027;
     color: #e1ff00;
     line-height: 1.6;
     padding: 20px;
@@ -19,16 +19,18 @@ h1 {
     text-align: center;
     color: #e1ff00;
     margin-bottom: 30px;
+    border: #000000;
 }
 
 /* Form styling */
 form {
-    background-color: #000037;
+    background-color: #000027;
     padding: 20px;
     max-width: 700px;
     margin: 0 auto;
     border-radius: 8px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border: #000000;
 }
 
 /* Label styling */
@@ -59,7 +61,7 @@ input[type="checkbox"] {
 /* Styling for submit button */
 button {
     display: inline-block;
-    background-color: #fff200;
+    background-color: #000000;
     color: #09ff00;
     padding: 12px 20px;
     border: none;
@@ -73,7 +75,8 @@ button {
 
 /* Submit button hover effect */
 button:hover {
-    background-color: #ff00f2;
+    background-color: #000000;
+    color: #ff00c8
 }
 
 /* Additional spacing for the input fields */
