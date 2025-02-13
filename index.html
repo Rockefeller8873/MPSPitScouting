@@ -1,17 +1,20 @@
-<!--Its dangerous to go alone, take these comments to guide you-->
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Pit Scouting</title>
   <link rel="stylesheet" href="styles.css">
-  <!--This generates the QR code -->
+  
+  <!-- Include QRCode.js library -->
+  <script src="https://cdn.jsdelivr.net/npm/qrcodejs2@0.0.0/qrcode.min.js"></script>
+  
+  <!-- JavaScript to generate QR Code and handle CSV data -->
   <script>
     function generateQRCode(event) {
       event.preventDefault(); 
-//This handles your mom...grabing the data to put into the QR code
+      
+      // Grab form data for the QR code
       const formData = {
         teamNumber: document.getElementById("teamNumber").value,
         teamName: document.getElementById("teamName").value,
@@ -50,23 +53,29 @@
           Both: document.getElementById("Both").checked ? "Both" : "",
           Shoot: document.getElementById("Shoot").checked ? "Shoot" : "",
           Process: document.getElementById("Process").checked ? "Process" : "",
-          Nither: document.gerElementById("Nither").checked ? "Nither" : "",
+          Nither: document.getElementById("Nither").checked ? "Nither" : ""
         },
         comments: document.getElementById("Comments").value
       };
-//This is the data that spits out into the QR code or csv data(if you cant read)
+      
+      // Prepare CSV data
       const csvData = [
         `${formData.teamNumber},${formData.teamName},${formData.driveType.Sweve},${formData.driveType.Tank},${formData.driveType.Mecanum},${formData.auton.yes},${formData.auton.no},${formData.autonPlan},${formData.scoringMethod.Algee},${formData.scoringMethod.Coral},${Object.values(formData.highestCoralLevel).join(", ")},${Object.values(formData.pickupMethod).join(", ")},${Object.values(formData.preferredCoralLevel).join(", ")},${Object.values(formData.shootProcessAlgee).join(", ")},${formData.comments}`
       ].join("\n");
 
+      // Insert CSV data into hidden input
       document.getElementById("csvData").value = csvData;
+
+      // Generate QR code
+      const qrCodeContainer = document.getElementById("qrcode");
+      qrCodeContainer.innerHTML = ""; // Clear any existing QR code
 
       const qr = new QRCode(qrCodeContainer, {
         text: csvData,
-        width: 256,  
-        height: 256, 
-        correctLevel: QRCode.CorrectLevel.L, 
-        version: 3
+        width: 256,
+        height: 256,
+        correctLevel: QRCode.CorrectLevel.L,
+        version: 10
       });
     }
 
@@ -74,7 +83,8 @@
       const csvData = document.getElementById("csvData").value;
 
       console.log("CSV Data to copy:", csvData);
-//This are popups
+
+      // Try using the clipboard API for modern browsers
       if (navigator.clipboard) {
         navigator.clipboard.writeText(csvData).then(() => {
           alert("CSV data copied to clipboard!");
@@ -83,6 +93,7 @@
           alert("Failed to copy text: " + err);
         });
       } else {
+        // Fallback for older browsers
         const textArea = document.createElement("textarea");
         textArea.value = csvData;
         document.body.appendChild(textArea);
@@ -101,11 +112,10 @@
   </script>
 </head>
 <body>
-<!--This is the start of how the website is set up-->
+  <!-- Main page content -->
   <h1>MP Reefscape Pit Scouting</h1>
 
   <form id="MP Pit Scouting" onsubmit="generateQRCode(event)"> 
-    
     <label for="teamNumber">Team Number:</label>
     <input type="number" id="teamNumber" name="teamNumber"><br><br>
 
@@ -157,13 +167,13 @@
     <button type="submit">Generate QR Code</button>
   </form>
 
-  <!--This genarates the QR code-->
+  <!-- Placeholder for QR Code -->
   <div id="qrcode"></div>
 
+  <!-- Hidden input to store CSV data for copying -->
   <input type="text" id="csvData" style="opacity: 0; position: absolute;" readonly>
 
-<!--This is a button (dummy) to copy CSV Data-->
+  <!-- Button to copy CSV Data -->
   <button onclick="copyToClipboard()">Copy CSV Data</button>
 </body>
 </html>
-<!--I hope these helped (;-->
