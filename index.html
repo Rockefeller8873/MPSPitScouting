@@ -5,16 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Pit Scouting</title>
   <link rel="stylesheet" href="styles.css">
-  
-  <!-- Include QRCode.js library -->
-  <script src="https://cdn.jsdelivr.net/npm/qrcodejs2@0.0.0/qrcode.min.js"></script>
-  
-  <!-- JavaScript to generate QR Code and handle CSV data -->
+
+  <!-- Include QRCode.js library locally -->
+  <script src="libs/qrcode.min.js"></script>
+
   <script>
     function generateQRCode(event) {
       event.preventDefault(); 
-      
-      // Grab form data for the QR code
+
       const formData = {
         teamNumber: document.getElementById("teamNumber").value,
         teamName: document.getElementById("teamName").value,
@@ -57,34 +55,29 @@
         },
         comments: document.getElementById("Comments").value
       };
-      
-      // Prepare CSV data
+
       const csvData = [
         `${formData.teamNumber},${formData.teamName},${formData.driveType.Sweve},${formData.driveType.Tank},${formData.driveType.Mecanum},${formData.auton.yes},${formData.auton.no},${formData.autonPlan},${formData.scoringMethod.Algee},${formData.scoringMethod.Coral},${Object.values(formData.highestCoralLevel).join(", ")},${Object.values(formData.pickupMethod).join(", ")},${Object.values(formData.preferredCoralLevel).join(", ")},${Object.values(formData.shootProcessAlgee).join(", ")},${formData.comments}`
       ].join("\n");
 
-      // Insert CSV data into hidden input
       document.getElementById("csvData").value = csvData;
 
-      // Generate QR code
       const qrCodeContainer = document.getElementById("qrcode");
-      qrCodeContainer.innerHTML = ""; // Clear any existing QR code
+      qrCodeContainer.innerHTML = "";
 
-      const qr = new QRCode(qrCodeContainer, {
+      // Generate QR code using QRCode.js
+      new QRCode(qrCodeContainer, {
         text: csvData,
-        width: 256,
-        height: 256,
-        correctLevel: QRCode.CorrectLevel.L,
-        version: 10
+        width: 256,  // QR code width
+        height: 256, // QR code height
+        correctLevel: QRCode.CorrectLevel.L,  // Error correction level (L, M, Q, H)
+        version: 10 // Version 10 allows larger QR codes
       });
     }
 
     function copyToClipboard() {
       const csvData = document.getElementById("csvData").value;
 
-      console.log("CSV Data to copy:", csvData);
-
-      // Try using the clipboard API for modern browsers
       if (navigator.clipboard) {
         navigator.clipboard.writeText(csvData).then(() => {
           alert("CSV data copied to clipboard!");
@@ -93,7 +86,6 @@
           alert("Failed to copy text: " + err);
         });
       } else {
-        // Fallback for older browsers
         const textArea = document.createElement("textarea");
         textArea.value = csvData;
         document.body.appendChild(textArea);
@@ -112,10 +104,10 @@
   </script>
 </head>
 <body>
-  <!-- Main page content -->
   <h1>MP Reefscape Pit Scouting</h1>
 
-  <form id="MP Pit Scouting" onsubmit="generateQRCode(event)"> 
+  <form id="MP Pit Scouting" onsubmit="generateQRCode(event)">
+    
     <label for="teamNumber">Team Number:</label>
     <input type="number" id="teamNumber" name="teamNumber"><br><br>
 
@@ -167,13 +159,11 @@
     <button type="submit">Generate QR Code</button>
   </form>
 
-  <!-- Placeholder for QR Code -->
   <div id="qrcode"></div>
 
   <!-- Hidden input to store CSV data for copying -->
   <input type="text" id="csvData" style="opacity: 0; position: absolute;" readonly>
 
-  <!-- Button to copy CSV Data -->
   <button onclick="copyToClipboard()">Copy CSV Data</button>
 </body>
 </html>
