@@ -16,6 +16,10 @@
     function generateQRCode(event) {
       event.preventDefault(); // Prevent form submission
 
+    function getSafeValue(value) {
+    return (value === null || value === undefined || value === '') ? '[]' : value;
+  }
+
       const formData = {
         teamNumber: document.getElementById("teamNumber").value,
         teamName: document.getElementById("teamName").value,
