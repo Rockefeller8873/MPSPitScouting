@@ -63,15 +63,15 @@
       document.getElementById("csvData").value = csvData;
 
       const qrCodeContainer = document.getElementById("qrcode");
-      qrCodeContainer.innerHTML = "";
+      qrCodeContainer.innerHTML = ""; // Clear any previous QR code
 
       // Generate QR code using QRCode.js
       new QRCode(qrCodeContainer, {
-        text: csvData,
-        width: 256,  // QR code width
-        height: 256, // QR code height
+        text: csvData,     // Data to encode in the QR code
+        width: 256,        // QR code width
+        height: 256,       // QR code height
         correctLevel: QRCode.CorrectLevel.L,  // Error correction level (L, M, Q, H)
-        version: 10 // Version 10 allows larger QR codes
+        version: 10        // Version 10 allows larger QR codes
       });
     }
 
@@ -159,7 +159,7 @@
     <button type="submit">Generate QR Code</button>
   </form>
 
-  <div id="qrcode"></div>
+  <div id="qrcode" style="margin-top: 20px;"></div>
 
   <!-- Hidden input to store CSV data for copying -->
   <input type="text" id="csvData" style="opacity: 0; position: absolute;" readonly>
