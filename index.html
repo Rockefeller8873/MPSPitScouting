@@ -1,3 +1,4 @@
+<!--Its dangerous to go alone, take these comments--> 
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Pit Scouting</title>
   <link rel="stylesheet" href="styles.css">
-
+<!--This is where the QR code gets drawn and brings in the data to make said QR code--> 
   <style>
     #qrcode canvas {
       border: 1px solid #000;
@@ -14,7 +15,7 @@
 
   <script>
     function generateQRCode(event) {
-      event.preventDefault(); // Prevent form submission
+      event.preventDefault();
 
       function getSafeValue(value) {
         return (value === null || value === undefined || value === '') ? '[]' : value;
@@ -63,26 +64,24 @@
         comments: document.getElementById("Comments").value
       };
 
-      // Convert form data into CSV format
+      //This compiles the data into CSV (AKA Comma-Separated Values) and it is a file type to, 
+      //in our case, put data in the QR code.
       const csvData = [
         `${formData.teamNumber},${formData.teamName},${formData.driveType.Sweve},${formData.driveType.Tank},${formData.driveType.Mecanum},${formData.auton.yes},${formData.auton.no},${formData.autonPlan},${formData.scoringMethod.Algee},${formData.scoringMethod.Coral},${Object.values(formData.highestCoralLevel).join(", ")},${Object.values(formData.pickupMethod).join(", ")},${Object.values(formData.preferredCoralLevel).join(", ")},${Object.values(formData.shootProcessAlgee).join(", ")},${formData.comments}`   
       ].join("\n");
 
-      // Set CSV data to the input field
       document.getElementById("csvData").value = csvData;
-
-      // Clear previous QR code (if any)
+      // This handles some QR Code stuff like clearing the old one, generateing it etc...
       const qrCodeContainer = document.getElementById("qrcode");
       qrCodeContainer.innerHTML = ""; 
 
-      // Generate QR Code
       const matrix = generateQRCodeMatrix(csvData);
       renderQRCode(matrix, 'qrcode');
     }
 
     function generateQRCodeMatrix(data) {
       const binaryData = encodeDataToBinary(data);
-      const matrixSize = 21; // QR version 1 size
+      const matrixSize = 21; 
       const matrix = createEmptyMatrix(matrixSize);
 
       let index = 0;
@@ -117,7 +116,7 @@
     function renderQRCode(matrix, containerId) {
       const container = document.getElementById(containerId);
       const size = matrix.length;
-      const squareSize = 10; // Size of each square
+      const squareSize = 10; 
 
       const canvas = document.createElement('canvas');
       const context = canvas.getContext('2d');
@@ -149,6 +148,7 @@
   </script>
 </head>
 <body>
+  <!--Finaly, this is the start of the code for the website-->
   <h1>MP Reefscape Pit Scouting</h1>
 
   <form id="MP Pit Scouting" onsubmit="generateQRCode(event)">
@@ -199,12 +199,14 @@
 
     <label for="Comments">Additional comments:</label>
     <textarea id="Comments" name="Comments"></textarea><br><br>
-
+  <!--This is a button-->
     <button type="submit">Generate QR Code</button>
   </form>
-
+  <!--This is QR code-->
   <div id="qrcode"></div>
-  <input type="text" id="csvData" readonly>
+  <!--This is hidden-->
+  <input type="text" id="csvData" hidden readonly>
+  <!--This is a button-->
   <button onclick="copyToClipboard(document.getElementById('csvData').value)">Copy CSV Data</button>
 </body>
 </html>
