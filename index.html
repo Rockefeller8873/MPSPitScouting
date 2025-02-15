@@ -1,26 +1,18 @@
-<!--Its dangerous to go alone, take these comments--> 
+<!--Its dangerous to go alone, take these comments to guide you-->
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Pit Scouting</title>
   <link rel="stylesheet" href="styles.css">
-<!--This is where the QR code gets drawn and brings in the data to make said QR code--> 
-  <style>
-    #qrcode canvas {
-      border: 1px solid #000;
-    }
-  </style>
-
+  <!--This generates the QR code -->
   <script>
     function generateQRCode(event) {
       event.preventDefault();
-
-      function getSafeValue(value) {
-        return (value === null || value === undefined || value === '') ? '[]' : value;
-      }
-
+      //This handles your mom...grabing the data to put into the QR code
       const formData = {
         teamNumber: document.getElementById("teamNumber").value,
         teamName: document.getElementById("teamName").value,
@@ -59,99 +51,72 @@
           Both: document.getElementById("Both").checked ? "Both" : "",
           Shoot: document.getElementById("Shoot").checked ? "Shoot" : "",
           Process: document.getElementById("Process").checked ? "Process" : "",
-          Nither: document.getElementById("Nither").checked ? "Nither" : ""
+          Nither: document.gerElementById("Nither").checked ? "Nither" : "",
+        },
+        removeAlgae: {
+          RAYES: document.getElementById("RAYES").checked ? "RAYES" : "",
+          RANO: document.getElementById("RANO").checked ? "RANO" : "",
+        },
+        HighLowNo: {
+          High: document.getElementById("High").checked ? "High" : "",
+          Low: document.getElementById("Low").checked ? "Low" : "",
+          Notatall: document.getElementById("Notatall").checked ? "Notatall" : "",
         },
         comments: document.getElementById("Comments").value
       };
-
-      //This compiles the data into CSV (AKA Comma-Separated Values) and it is a file type to, 
-      //in our case, put data in the QR code.
+      //This is the data that spits out into the QR code or csv data(if you cant read)
       const csvData = [
-        `${formData.teamNumber},${formData.teamName},${formData.driveType.Sweve},${formData.driveType.Tank},${formData.driveType.Mecanum},${formData.auton.yes},${formData.auton.no},${formData.autonPlan},${formData.scoringMethod.Algee},${formData.scoringMethod.Coral},${Object.values(formData.highestCoralLevel).join(", ")},${Object.values(formData.pickupMethod).join(", ")},${Object.values(formData.preferredCoralLevel).join(", ")},${Object.values(formData.shootProcessAlgee).join(", ")},${formData.comments}`   
-      ].join("\n");
+        `${formData.teamNumber},${formData.teamName},${formData.driveType.Sweve},${formData.driveType.Tank},${formData.driveType.Mecanum},${formData.scoringMethod.Algee},${formData.scoringMet hod.Coral},${ Object.values(formData.pickupMethod).join(", ") },${ Object.values(formData.highestCoralLevel).join(", ") },${ Object.values(formData.preferredCoralLevel).join(", ") },${ Object.values(formData.shootProcessAlgee).join(", ") },${ formData.comments }`
+      ].join,${ Object.values(formData.removeAlgae.RAYES).join(", ") },${ Object.values(formData.removeAlgae.RANO).join(", ") },${ Object.values(formData.HighLowNo.High).join(", ") },${ Object.values(formData.HighLowNo.Low).join(", ") },${ Object.values(formData.HighLowNo.No).join(", ") }, ("\n");
 
       document.getElementById("csvData").value = csvData;
-      // This handles some QR Code stuff like clearing the old one, generateing it etc...
-      const qrCodeContainer = document.getElementById("qrcode");
-      qrCodeContainer.innerHTML = ""; 
 
-      const matrix = generateQRCodeMatrix(csvData);
-      renderQRCode(matrix, 'qrcode');
+      const qr = new QRCode(qrCodeContainer, {
+        text: csvData,
+        width: 256,  
+        height: 256, 
+        correctLevel: QRCode.CorrectLevel.L, 
+        version: 3
+      });
     }
 
-    function generateQRCodeMatrix(data) {
-      const binaryData = encodeDataToBinary(data);
-      const matrixSize = 21; 
-      const matrix = createEmptyMatrix(matrixSize);
+    function copyToClipboard() {
+      const csvData = document.getElementById("csvData").value;
 
-      let index = 0;
-      for (let row = 0; row < matrixSize; row++) {
-        for (let col = 0; col < matrixSize; col++) {
-          if (index < binaryData.length) {
-            matrix[row][col] = binaryData[index] === '1' ? 1 : 0;
-            index++;
-          }
-        }
-      }
-
-      return matrix;
-    }
-
-    function createEmptyMatrix(size) {
-      const matrix = [];
-      for (let i = 0; i < size; i++) {
-        matrix.push(new Array(size).fill(0));
-      }
-      return matrix;
-    }
-
-    function encodeDataToBinary(data) {
-      let binaryString = '';
-      for (let i = 0; i < data.length; i++) {
-        binaryString += data.charCodeAt(i).toString(2).padStart(8, '0');
-      }
-      return binaryString;
-    }
-
-    function renderQRCode(matrix, containerId) {
-      const container = document.getElementById(containerId);
-      const size = matrix.length;
-      const squareSize = 10; 
-
-      const canvas = document.createElement('canvas');
-      const context = canvas.getContext('2d');
-      canvas.width = size * squareSize;
-      canvas.height = size * squareSize;
-
-      for (let row = 0; row < size; row++) {
-        for (let col = 0; col < size; col++) {
-          context.fillStyle = matrix[row][col] === 1 ? 'black' : 'white';
-          context.fillRect(col * squareSize, row * squareSize, squareSize, squareSize);
-        }
-      }
-
-      container.appendChild(canvas);
-    }
-
-    function copyToClipboard(text) {
-      if (text && text.trim() !== '') {
-        const tempTextArea = document.createElement('textarea');
-        tempTextArea.value = text;
-        document.body.appendChild(tempTextArea);
-        tempTextArea.select();
-        document.execCommand('copy');
-        document.body.removeChild(tempTextArea);
+      console.log("CSV Data to copy:", csvData);
+//This are popups
+      if (navigator.clipboard) {
+        navigator.clipboard.writeText(csvData).then(() => {
+          alert("CSV data copied to clipboard!");
+        }).catch((err) => {
+          console.error("Error copying to clipboard:", err);
+          alert("Failed to copy text: " + err);
+        });
       } else {
-        alert('No data to copy!');
+        const textArea = document.createElement("textarea");
+        textArea.value = csvData;
+        document.body.appendChild(textArea);
+        textArea.select();
+        try {
+          const successful = document.execCommand('copy');
+          const msg = successful ? 'successful' : 'unsuccessful';
+          console.log('Fallback: Copying text command was ' + msg);
+          alert("CSV data copied to clipboard (fallback)!");
+        } catch (err) {
+          console.error('Fallback: Unable to copy', err);
+        }
+        document.body.removeChild(textArea);
       }
     }
   </script>
 </head>
+
 <body>
-  <!--Finaly, this is the start of the code for the website-->
+  <!--This is the start of how the website is set up-->
   <h1>MP Reefscape Pit Scouting</h1>
 
   <form id="MP Pit Scouting" onsubmit="generateQRCode(event)">
+
     <label for="teamNumber">Team Number:</label>
     <input type="number" id="teamNumber" name="teamNumber"><br><br>
 
@@ -179,34 +144,49 @@
     <input type="checkbox" id="PS" name="PS" value="PS">Player Station
     <input type="checkbox" id="BT" name="BT" value="BT">Both<br><br>
 
-    <label for="Whats the highest level of Coral can your robot reach?">Whats the highest level of Coral can your robot reach?</label>
+    <label for="Whats the highest level of Coral can your robot reach?">Whats the highest level of Coral can your robot
+      reach?</label>
     <input type="checkbox" id="L1" name="L1" value="L1">Level 1
     <input type="checkbox" id="L2" name="L2" value="L2">Level 2
     <input type="checkbox" id="L3" name="L3" value="L3">Level 3
     <input type="checkbox" id="L4" name="L4" value="L4">Level 4<br><br>
 
-    <label for="Preferred Level for Coral?">Preferred level for Coral?</label>
+    <label for="Can your robot shoot and/or process Algee?">Can your Robot shoot and/or process Algae?</label>
+    <input type="checkbox" id="Both" name="Both" value="Both">Both
+    <input type="checkbox" id="Shoot" name="Shoot" value="Shoot">Shoot
+    <input type="checkbox" id="Process" name="Process" value="Process">Process
+    <input type="checkbox" id="Nither" name="Nither" value="Nither">Nither<br><br>
+
+    <label for="Whats the preferred level of Coral your robot can reach?">Whats the preferred level of Coral your robot
+      can reach?</label>
     <input type="checkbox" id="PL1" name="PL1" value="PL1">Level 1
     <input type="checkbox" id="PL2" name="PL2" value="PL2">Level 2
     <input type="checkbox" id="PL3" name="PL3" value="PL3">Level 3
     <input type="checkbox" id="PL4" name="PL4" value="PL4">Level 4<br><br>
 
-    <label for="How does your Robot shoot process Algee?">How does your Robot shoot process Algee?</label>
-    <input type="checkbox" id="Both" name="Both" value="Both">Both
-    <input type="checkbox" id="Shoot" name="Shoot" value="Shoot">Shoot
-    <input type="checkbox" id="Process" name="Process" value="Process">Process
-    <input type="checkbox" id="Nither" name="Nither" value="Nither">Neither<br><br>
+    <label for="Remove Algae">Does your robot remove Algae?</label>
+    <input type="checkbox" id="RAYES" name="RAYES" value="RAYES">Yes
+    <input type="checkbox" name="RANO" id="RANO" value="RANO">No<br><br>
 
-    <label for="Comments">Additional comments:</label>
-    <textarea id="Comments" name="Comments"></textarea><br><br>
-  <!--This is a button-->
+    <label for="HighLowNo">Does your robot hang on shallow [High], Deep [Low] or Not at all? </label>
+    <input type="checkbox" name="High" id="High" value="High">High
+    <input type="checkbox" name="Low" id="Low" value="Low">Low
+    <input type="checkbox" name="Notatall" id="Notatall" value="Notatall">Not at all<br><br>
+
+    <label for="Comments">Comments:</label>
+    <input type="text" id="Comments" name="Comments"><br><br>
+
     <button type="submit">Generate QR Code</button>
   </form>
-  <!--This is QR code-->
+
+  <!--This genarates the QR code-->
   <div id="qrcode"></div>
-  <!--This is hidden-->
-  <input type="text" id="csvData" hidden readonly>
-  <!--This is a button-->
-  <button onclick="copyToClipboard(document.getElementById('csvData').value)">Copy CSV Data</button>
+
+  <input type="text" id="csvData" style="opacity: 0; position: absolute;" readonly>
+
+  <!--This is a button (dummy) to copy CSV Data-->
+  <button onclick="copyToClipboard()">Copy CSV Data</button>
 </body>
+
 </html>
+<!--I hope these helped (;-->
